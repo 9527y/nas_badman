@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>渣男记录器</title>
+    <!-- for-mobile-apps -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content=""/>
+    <script type="application/x-javascript"> addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    } </script>
+    <!-- //for-mobile-apps -->
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+    <link href="css/bootstrap-datepicker.min.css"
+          rel="stylesheet">
+    <!-- js -->
+    <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+    <!-- //js -->
+    <!-- start-smoth-scrolling -->
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({scrollTop: $(this.hash).offset().top}, 1000);
+            });
+        });
+    </script>
+    <!-- start-smoth-scrolling -->
+</head>
+
+<body>
+<!-- header -->
+<div class="header" id="ban">
+    <div class="container">
+        <div class="w3ls_logo">
+            <h1><a href="index.html">BadMan</a></h1>
+        </div>
+        <div class="header_right">
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse nav-wil">
+                <nav class="link-effect-7" style="color: yellow; margin-top:20px;vertical-align: middle;"
+                     id="link-effect-7 ">
+                    <h3>交友之前查一查，被渣之后记一笔，悔恨时候投一票。</h3>
+                </nav>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!-- //header -->
+<!-- updates-bottom -->
+<div class="updates-bottom">
+    <div class="container">
+        <div class="col-md-4 w3_updates_bottom_grid">
+            <div class="w3_updates_bottom_grid_left">
+                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+            </div>
+            <div class="w3_updates_bottom_grid_right">
+                <p class="counter" id="size">0</p>
+                <h3>总人数</h3>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="col-md-4 w3_updates_bottom_grid">
+            <div class="w3_updates_bottom_grid_left">
+                <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+            </div>
+            <div class="w3_updates_bottom_grid_right">
+                <p class="counter" id="voteAmount">0</p>
+                <h3>投票人数</h3>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="col-md-4 w3_updates_bottom_grid">
+            <div class="w3_updates_bottom_grid_left">
+                <span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>
+            </div>
+            <div class="w3_updates_bottom_grid_right">
+                <p class="counter" id="voteUserNum">0</p>
+                <h3>被投人数</h3>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+        <!-- Starts-Number-Scroller-Animation-JavaScript -->
+        <script src="js/waypoints.min.js"></script>
+        <script src="js/counterup.min.js"></script>
+        <script>
+            jQuery(document).ready(function ($) {
+            });
+        </script>
+
+        <!-- //Starts-Number-Scroller-Animation-JavaScript -->
+    </div>
+</div>
+<!-- //updates-bottom -->
+<div class="noExtension">
+    <div class="container alert alert-danger">
+        <h1>没有安装Nas钱包插件</h1>
+        <span> <strong>请先安装NAS钱包!</strong>
+            安装地址：<a target="_blank" href="https://github.com/ChengOrangeJu/WebExtensionWallet" class="alert-link">https://github.com/ChengOrangeJu/WebExtensionWallet</a>.</span>
+    </div>
+</div>
+<div class="loading">
+    <div class="container alert alert-info">
+        <h1>交易中</h1>
+        <span> <strong>交易中，请稍候~</strong>       </span>
+    </div>
+</div>
+<div class="trErr">
+    <div class="container alert alert-danger">
+        <h1>交易失败</h1>
+        <span> <strong>交易失败，请检查交易信息~</strong>       </span>
+    </div>
+</div>
+
+<div class="frm">
+    <div class="container">
+        <h3 class="title">Let's <span>Go</span></h3>
+        <div class="container col-md-7">
+
+            <h3 class="bars">查询</h3>
+            <div class="input-group">
+                <span class="input-group-addon">手机号</span>
+                <input type="text" class="form-control" id="search_phone" placeholder="输入手机号进行查询" value=""
+                       aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group">
+                <h1>
+                    <button class="label label-success" id="search-btn">查询</button>
+                </h1>
+            </div>
+            <div id="noresult" class="result">
+                <div class="alert alert-success">
+                    You are luck ! 未找到.
+                </div>
+            </div>
+            <div id="search-result" class="result">
+                <div class="input-group">
+                    <span class="input-group-addon">姓名</span>
+                    <input type="text" class="form-control" disabled id="result-name"
+                           aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon">出生日期</span>
+                    <input type="text" class="form-control" disabled id="result-birthday"
+                           aria-describedby="basic-addon1">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon">得票</span>
+                    <input type="text" class="form-control" disabled id="result-poll"
+                           aria-describedby="basic-addon1">
+                </div>
+                <div>
+                    <div class="alert alert-info col-md-11">
+                        添加者：<span id="result-author"></span>
+                    </div>
+                    <div class="col-md-1">
+                        <h1>
+                            <input type="hidden" value="" id="result-phone">
+                            <button class="label label-warning" title="投他一票" id="voteBtn">
+                            <span class="glyphicon glyphicon-thumbs-down"
+                                  aria-hidden="true"></span></button>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="container col-md-2"></div>
+        <div class=" container col-md-5">
+
+            <h3 class="bars">添加</h3>
+            <div class="input-group">
+                <span class="input-group-addon">姓名</span>
+                <input type="text" class="form-control" placeholder="输入姓名" aria-describedby="basic-addon1"
+                       id="add-name">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon">手机号</span>
+                <input type="text" class="form-control" placeholder="您敢写，我敢存" aria-describedby="basic-addon1"
+                       id="add-phone">
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon">出生日期</span>
+                <input type="text" class="form-control datepicker" placeholder="为了进行简单的区分，可以随便选"
+                       aria-describedby="basic-addon1"
+                       id="add-birthday">
+            </div>
+            <div class="input-group">
+                <h1>
+                    <button class="label label-primary" id="add-submit">提交</button>
+                </h1>
+            </div>
+            <div id="add-result"></div>
+        </div>
+    </div>
+
+</div>
+
+<!-- footer -->
+<div class="footer-copy">
+    <div class="container">
+        <div class="w3agile_footer_grids">
+            <div class="col-md-4 w3agile_footer_grid">
+                <h3>关于程序</h3>
+                <p>本Dapp基于星云链驱动，您可以放心进行登记~~.....完全匿名，你懂得。（可投多次哦，看你多恨TA了）</p>
+                <p>使用 <a href="https://nebulas.io">星云链</a> 驱动，
+                    <a href="https://incentive.nebulas.io/cn/signup.html?invite=EP1NQ" target="">提交DAPP获得100+NAS</a></p>
+                <img src="images/nebulasx60.png">
+            </div>
+            <div class="col-md-4 w3agile_footer_grid w3agile_footer_grid1">
+                <h3>爬行榜Top10</h3>
+                <ul id="getMax">
+                </ul>
+            </div>
+            <div class="col-md-4 w3agile_footer_grid w3agile_footer_grid1">
+                <h3>其他</h3>
+                <ul>
+                    <li><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>感谢 <a
+                            href="https://nas.biyouduo.com">NAS水龙头</a> 提供了我的启动资金
+                    </li>
+                    <li><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                        <a href="mailto:alexdev@aliyun.com">Mail</a></li>
+                    <li><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+                        扫一扫加好友
+                    </li>
+                    <li><span><img src="images/wechat.png" width="100"></span></li>
+                </ul>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div class="copy-right-social">
+    <div class="container">
+        <div class="footer-pos">
+            <a href="#ban" class="scroll"><img src="images/arrow.png" alt=" " class="img-responsive"/></a>
+        </div>
+        <div class="copy-right">
+            <p>Copyright &copy; 2018.由NAS强力驱动
+                <a href="http://badman.linkall.pub" target="_blank">BadMan</a></p>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!-- //footer -->
+<!-- for bootstrap working -->
+<script src="js/bootstrap.js"></script>
+<script src="js/bootstrap-datepicker.min.js"></script>
+<script src=js/lib/nebPay.js></script>
+<script src=js/lib/nebulas.js></script>
+<!-- //for bootstrap working -->
+</body>
+<script>
+    "use strict";
+    var intervalExt;
+    var NebPay = require("nebpay");
+    var nebPay = new NebPay();
+    var serialNumber = '';
+    // var dappAddress = "n1htzsTSWZi9Ydw8xddUgUqRmjfX9fo6ieg";
+    var dappAddress = "n1kkVKap7QP5JJFfTL4BCe67D2rnf6SUS5L";
+    var value = "0";
+    var to = dappAddress;
+    var nebulas;
+    var Account;
+    var neb;
+    var intervalQuery;
+
+    $(function () {
+        if (typeof(webExtensionWallet) === "undefined") {
+            $(".noExtension").show()
+            $(".frm").hide()
+        }
+        else {
+            nebulas = require("nebulas"), Account = nebulas.Account, neb = new nebulas.Neb();
+            neb.setRequest(new nebulas.HttpRequest("https://testnet.nebulas.io"));
+            getNums();
+        }
+        $('#search-btn').click(function () {
+            $('.trErr').hide();
+            var value = "0";
+            var callFunction = "get";
+            var callArgs = "[\"" + $("#search_phone").val() + "\"]";
+            nebPay.simulateCall(dappAddress, value, callFunction, callArgs, {
+                listener: search
+            });
+        });
+
+        $("#add-submit").click(function () {
+            $('.trErr').hide();
+            $('.result').hide(500);
+            var pms = [];
+            pms.push($('#add-name').val());
+            pms.push($('#add-birthday').val());
+            pms.push($('#add-phone').val());
+            var callFunction = "save";
+            var callArgs = JSON.stringify(pms);
+
+            serialNumber = nebPay.call(to, value, callFunction, callArgs, {
+                listener: function (resp) {
+                    intervalToQuery(resp);
+                }
+            });
+            $('.loading').show(500);
+        });
+
+        $('#voteBtn').click(function () {
+            $('.trErr').hide();
+            var phone = $('#result-phone').val();
+            var pms = [];
+            pms.push(phone);
+            var voteHimFunc = "voteHim";
+            var callArgs = JSON.stringify(pms);
+            serialNumber = nebPay.call(to, value, voteHimFunc, callArgs, {
+                listener: function (resp) {
+                    intervalToQuery(resp);
+                }
+            });
+            $('.loading').show(500);
+        });
+        $('.datepicker').datepicker({format: 'yyyy-mm-dd'});
+    });
+
+    function search(resp) {
+        $('.result').hide(500);
+        if (resp.result == "null") {
+            $('#noresult').show(500);
+        } else {
+            var res = JSON.parse(resp.result);
+            $('#result-author').text(res.author)
+            $('#result-name').val(res.name)
+            $('#result-birthday').val(res.birthday);
+            $('#result-phone').val(res.phone);
+            $('#result-poll').val(res.poll);
+            $('#search-result').show(500);
+        }
+    }
+
+    function checkNebpay() {
+        try {
+            var NebPay = require("nebpay");
+            $(".noExtension").hide(500)
+            getNums();
+            clearInterval(intervalExt);
+        } catch (e) {
+            console.log(e);
+            $(".noExtension").show(500)
+            $(".frm").hide(500)
+        }
+    }
+
+    //获取一些数据
+    function getNums() {
+        if ($('#search_phone').val() != '') {
+            $('#search-btn').click();
+        }
+        $('.loading').hide(500);
+        var value = "0";
+        var callArgs = "[]";
+        var getLenFunc = "getLen";
+        nebPay.simulateCall(dappAddress, value, getLenFunc, callArgs, {
+            listener: getLen
+        });
+        var getVoteAmountFunc = "getVoteAmount";
+        nebPay.simulateCall(dappAddress, value, getVoteAmountFunc, callArgs, {
+            listener: getVoteAmount
+        });
+        var getVoteUserNumFunc = "getVoteUserNum";
+        nebPay.simulateCall(dappAddress, value, getVoteUserNumFunc, callArgs, {
+            listener: getVoteUserNum
+        });
+        getMax();
+    }
+
+    //总票数
+    function getLen(resp) {
+        $('#size').text(resp.result);
+    }
+
+    //投票人数
+    function getVoteAmount(resp) {
+        $('#voteAmount').text(resp.result);
+    }
+
+    //getVoteUserNum
+    function getVoteUserNum(resp) {
+        $('#voteUserNum').text(resp.result);
+    }
+
+    function getMax() {
+        var value = "0";
+        var callFunction = "getMax";
+        var callArgs = "[]";
+        nebPay.simulateCall(dappAddress, value, callFunction, callArgs, {
+            listener: function (resp) {
+                $('#getMax').html('');
+                var list = JSON.parse(resp.result);
+                for (var item in list) {
+                    var html = '<li><span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>' +
+                        list[item].phone + ' ->' + list[item].poll + '票</li>'
+                    $('#getMax').append(html);
+                }
+            }
+        });
+    }
+
+    //交易查询
+    function checkTx(tx, callback) {
+        neb.api.getTransactionReceipt({hash: tx}).then(function (resp) {
+            console.log(resp);
+            if (callback) {
+                callback(resp);
+            }
+        }).catch(function (err) {
+            console.log(err);
+            clearInterval(intervalQuery);
+        })
+    }
+
+    //定时任务
+    function intervalToQuery(resp) {
+        intervalQuery = setInterval(function () {
+            checkTx(resp.txhash, function (resp) {
+                if (resp.status === 0) {
+                    // if (resp.execute_result == 'Error: wait') {
+                    //     alert('交易失败')
+                    // }
+                    $('.trErr').show(500);
+                    $('.loading').hide();
+                    clearInterval(intervalQuery);
+                }
+                else if (resp.status === 2) {
+                    // showStatus('正在处理，请稍后...');
+                }
+                else if (resp.status === 1) {
+                    getNums();
+                    $('.loading').hide(500);
+                    clearInterval(intervalQuery);
+                }
+            });
+        }, 5000);
+    }
+</script>
+</html>
