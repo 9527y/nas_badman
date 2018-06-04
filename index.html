@@ -120,6 +120,12 @@
         <span> <strong>交易失败，请检查交易信息~</strong>       </span>
     </div>
 </div>
+<div class="trCan">
+    <div class="container alert alert-danger">
+        <h1>交易取消</h1>
+        <span> <strong>交易取消~</strong>       </span>
+    </div>
+</div>
 
 <div class="frm">
     <div class="container">
@@ -266,7 +272,7 @@
     var nebPay = new NebPay();
     var serialNumber = '';
     // var dappAddress = "n1htzsTSWZi9Ydw8xddUgUqRmjfX9fo6ieg";
-    var dappAddress = "n1kkVKap7QP5JJFfTL4BCe67D2rnf6SUS5L";
+    var dappAddress = "n1gouKGpUjHY8Wmui6buWga4ekp2o4wLwTF";
     var value = "0";
     var to = dappAddress;
     var nebulas;
@@ -281,11 +287,12 @@
         }
         else {
             nebulas = require("nebulas"), Account = nebulas.Account, neb = new nebulas.Neb();
-            neb.setRequest(new nebulas.HttpRequest("https://testnet.nebulas.io"));
+            neb.setRequest(new nebulas.HttpRequest("https://mainnet.nebulas.io"));
             getNums();
         }
         $('#search-btn').click(function () {
             $('.trErr').hide();
+            $('.trCan').hide();
             var value = "0";
             var callFunction = "get";
             var callArgs = "[\"" + $("#search_phone").val() + "\"]";
@@ -295,18 +302,33 @@
         });
 
         $("#add-submit").click(function () {
+            $('.trCan').hide();
             $('.trErr').hide();
             $('.result').hide(500);
+
+            var name = $('#add-name').val();
+            var birthday = $('#add-birthday').val();
+            var phone = $('#add-phone').val();
+
+            if (name === "" || birthday === "" || phone === "") {
+                alert('信息有误');
+                return;
+            }
+            if (phone.length > 64 || birthday.length > 64 || name.length > 64) {
+                alert('长度超限');
+                return;
+            }
+
             var pms = [];
-            pms.push($('#add-name').val());
-            pms.push($('#add-birthday').val());
-            pms.push($('#add-phone').val());
+            pms.push(name);
+            pms.push(birthday);
+            pms.push(phone);
             var callFunction = "save";
             var callArgs = JSON.stringify(pms);
 
             serialNumber = nebPay.call(to, value, callFunction, callArgs, {
                 listener: function (resp) {
-                    intervalToQuery(resp);
+                    (resp);
                 }
             });
             $('.loading').show(500);
@@ -314,6 +336,7 @@
 
         $('#voteBtn').click(function () {
             $('.trErr').hide();
+            $('.trCan').hide();
             var phone = $('#result-phone').val();
             var pms = [];
             pms.push(phone);
@@ -427,26 +450,59 @@
 
     //定时任务
     function intervalToQuery(resp) {
-        intervalQuery = setInterval(function () {
-            checkTx(resp.txhash, function (resp) {
-                if (resp.status === 0) {
-                    // if (resp.execute_result == 'Error: wait') {
-                    //     alert('交易失败')
-                    // }
-                    $('.trErr').show(500);
+        if (typeof resp == "string") {
+            if (resp.indexOf('Error') != -1) {
+                if (resp.indexOf('reject') != -1) {
+                    $('.trCan').show(500);
+                    $('.trErr').hide();
                     $('.loading').hide();
                     clearInterval(intervalQuery);
-                }
-                else if (resp.status === 2) {
-                    // showStatus('正在处理，请稍后...');
-                }
-                else if (resp.status === 1) {
-                    getNums();
-                    $('.loading').hide(500);
+                } else {
+                    $('.trErr').show(500);
+                    $('.loading').hide();
+                    $('.trCan').hide();
                     clearInterval(intervalQuery);
                 }
-            });
-        }, 5000);
+            } else {
+                $('.trErr').show(500);
+                $('.loading').hide();
+                $('.trCan').hide();
+                clearInterval(intervalQuery);
+            }
+        } else {
+            intervalQuery = setInterval(function () {
+                checkTx(resp.txhash, function (resp) {
+                    console.log("resp:" + resp);
+                    if (typeof resp == "string") {
+                        if (resp.indexOf('Error') != -1) {
+                            if (resp.indexOf('reject') != -1) {
+                                $('.trCan').show(500);
+                                $('.trErr').hide();
+                                $('.loading').hide();
+                                clearInterval(intervalQuery);
+                            } else {
+                                $('.trErr').show(500);
+                                $('.loading').hide();
+                                $('.trCan').hide();
+                                clearInterval(intervalQuery);
+                            }
+                        } else {
+                            $('.trErr').show(500);
+                            $('.loading').hide();
+                            $('.trCan').hide();
+                            clearInterval(intervalQuery);
+                        }
+                    } else if (resp.status === 2) {
+                        // showStatus('正在处理，请稍后...');
+                    }
+                    else if (resp.status === 1) {
+                        getNums();
+                        $('.loading').hide(500);
+                        clearInterval(intervalQuery);
+                    }
+                });
+            }, 5000);
+        }
     }
 </script>
 </html>

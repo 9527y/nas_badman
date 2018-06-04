@@ -1,8 +1,8 @@
-.frm, .noExtension , .loading,.trErr{
+.frm, .noExtension , .loading,.trErr ,.trCan{
     padding: 2em 0;
 }
 
-.noExtension ,.loading ,.trErr{
+.noExtension ,.loading ,.trErr,.trCan{
     display: none;
 }
 
